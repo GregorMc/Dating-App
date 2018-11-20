@@ -1,14 +1,21 @@
 body {
-    background-color:Pink;
+    background-color:peachpuff;
+    margin: 0 10% 2em 10%;
+    font-family: Mistral;
+
 }
 
 h1 {
-    color: white;
+    color:black;
     text-align: center;
-}
 
+}
+#title{
+    color: red;
+    font-family: Mistral;
+}
 p {
-    font-family: verdana;
+    font-family: Mistral;
     font-size: 20px;
 }
 
