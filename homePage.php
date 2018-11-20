@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial scale=1.0">
     <title>Love At First Site</title>
-    <link rel="stylesheet" type="text/css" href="css_selectors.css"/>
 </head>
-<body style="background-color:DarkSalmon">
+<body>
 <p>
 
 <h1 style="text-align:center;" > Love at First Site <3 </h1>
@@ -17,9 +16,10 @@
 
 <form action = "UserProfile.php" method="POST">
     <button type="submit"   name="logIn"> Log in </button><br/><br/>
+
 </form>
 
-<form action = "SignupPage.php" method="POST">
+<form action = "SignupPage.html" method="POST">
     <button type="submit"   name="signUp"> Sign up </button>
 </form>
 
