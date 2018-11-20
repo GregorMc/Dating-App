@@ -10,7 +10,7 @@
 <body>
 <div>
     <h1>Sign up Confirmation</h1>
-
+    <link rel="stylesheet" type="text/css" href="Design.css"/>
 
     <?php
 
@@ -33,7 +33,8 @@
     echo  " Are you ready to find your soul mate? " ;
     echo  "Click on the link sent to your email address ".$email;
 
-    //connect to MySQL database *** TO BE CREATED ***
+    //connect to MySQL database
+    // *** TO BE CREATED ***
 
     $host = "devweb2018.cis.strath.ac.uk";
     $user = "";
