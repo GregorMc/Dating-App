@@ -19,7 +19,7 @@
 
 </form>
 
-<form action = "SignupPage.php" method="POST">
+<form action = "SignupPage.html" method="POST">
     <button type="submit"   name="signUp"> Sign up </button>
 </form>
 
