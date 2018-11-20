@@ -15,10 +15,11 @@
     Username :            <input type="text"     name="userName" /> <br/><br/>
     Password :            <input type="text"   name="password"/> <br/><br/>
 
-
+<form action = "UserProfile.php" method="POST">
     <button type="submit"   name="logIn"> Log in </button><br/><br/>
+</form>
 
-<form action = "signupPage.php" method="POST">
+<form action = "SignupPage.php" method="POST">
     <button type="submit"   name="signUp"> Sign up </button>
 </form>
 
