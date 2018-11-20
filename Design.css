@@ -1,22 +1,26 @@
 body {
     background-color:peachpuff;
-    margin: 0 10% 2em 10%;
-    font-family: Mistral;
+    margin: 0 5% 2em 5%;
 
+    font-family: cursive;
+    font-size: 40px;
+
+    border-style: double;
+    border-width: 5px;
+    border-color: crimson;
 }
 
+
 h1 {
-    color:black;
+
+    color: darkred;
     text-align: center;
 
 }
-#title{
-    color: red;
-    font-family: Mistral;
-}
-p {
-    font-family: Mistral;
-    font-size: 20px;
+
+
+body {
+
 }
 
 
