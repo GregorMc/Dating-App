@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <div>
     <h1>Please create your user profile</h1>
 </div>
@@ -25,6 +25,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel= "stylesheet" href="Design.css"  link/>
     <title>Sign up page</title>
 </head>
 <body>
