@@ -18,7 +18,7 @@
 
     <button type="submit"   name="logIn"> Log in </button><br/><br/>
 
-<form action = "signupPage.php" method="POST">
+<form action = "SignupPage.php" method="POST">
     <button type="submit"   name="signUp"> Sign up </button>
 </form>
 
