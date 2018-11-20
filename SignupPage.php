@@ -1,40 +1,66 @@
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial scale=1.0">
-    <title>Love At First Site</title>
-    <link rel="stylesheet" type="text/css" href="Design.css"/>
-<div>
-    <h1>Please create your user profile</h1>
-</div>
-
-<form action="InsertUserProfile.php"method="post">
-    <p>
-        First name: <input type="text" name="firstname"/> <br/>
-        Surname: <input type="text" name="surname"/> <br/>
-        Username: <input type="text" name="username"/> <br/>
-        Email: <input type="text" name="email"/> <br/>
-        Confirm Email: <input type="text" name="confirmemail"/> <br/>
-        Password: <input type="text" name="password"/> <br/>
-        Confirm Password: <input type="text" name="confirmpassword"/> <br/>
-        Age: <input type="text" name="age"/> <br/>
-        Location: <input type="text" name="location"/> <br/>
-        Short Bio: <input type="text" name="bio"/> <br/>
-
-        <input type="submit"/>
-    </p>
-</form>
-
 
 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title> Sign up </title>
 
-    <title>Sign up page</title>
+
 </head>
 <body>
+<div>
+    <h1>Sign up Confirmation</h1>
 
 
+    <?php
+
+
+    //set up variables from $_GET
+
+    $name =     isset ($_POST["name"])         ?$_POST["name"]:"";
+    $username =      isset ($_POST["username"])          ?$_POST["username"]:"";
+    $email =         isset ($_POST["email"])            ?$_POST["email"]:"";
+    $password =      isset ($_POST["password"])             ?$_POST["password"]:"";
+    $age =           isset ($_POST["age"])       ?$_POST["age"]:"";
+    $location =      isset ($_POST["location"])       ?$_POST["Location"]:"";
+
+
+    $msg = "Thank you for signing up to Love At First Site! Please click the link to access your account.. https://devweb2018.cis.strath.ac.uk/~jwb16142/312/groupq/UserProfile.php " ;
+    mail($email, "Love at First Site", $msg);
+
+
+    echo  "Hello ".$name." and Welcome to Love at First Site!";
+    echo  " Are you ready to find your soul mate? " ;
+    echo  "Click on the link sent to your email address ".$email;
+
+    //connect to MySQL database *** TO BE CREATED ***
+
+    $host = "devweb2018.cis.strath.ac.uk";
+    $user = "";
+    $pass = "";
+    $dbname = "";
+
+    $conn = new mysqli($host, $user, $pass, $dbname);
+
+    if($conn->connect_error){
+        die("connection failed : ".$conn->connect_error); //FIXME remove once working
+    }
+
+    //create SQL query and run it
+    $sql = "INSERT INTO `UserProfiles` (`id`, `name`, `username`, `email`, `password`, `age`, `location`) VALUES "
+        ."(NULL, '$name', '$username', '$email', '$password', '$age', '$location');";
+
+
+    if($conn->query($sql)===TRUE){
+        echo"<p> Insert successful</p>";
+    } else{
+        die("Error on insert ".$conn-> error);//FIXME remove once working
+    }
+
+
+
+
+    ?>
+</div>
 </body>
+</html>

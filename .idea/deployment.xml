@@ -5,7 +5,7 @@
       <paths name="cafe">
         <serverdata>
           <mappings>
-            <mapping deploy="trial" local="$PROJECT_DIR$" web="/trial" />
+            <mapping deploy="/312/groupq" local="$PROJECT_DIR$" web="https://devweb2018.cis.strath.ac.uk/~jwb16142/312/groupq" />
           </mappings>
         </serverdata>
       </paths>
