@@ -1,4 +1,10 @@
-!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial scale=1.0">
+    <title>Love At First Site</title>
+    <link rel="stylesheet" type="text/css" href="Design.css"/>
 <div>
     <h1>Please create your user profile</h1>
 </div>
@@ -25,7 +31,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel= "stylesheet" href="Design.css"  link/>
+
     <title>Sign up page</title>
 </head>
 <body>
