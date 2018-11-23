@@ -10,17 +10,21 @@ body {
     border-color: crimson;
 }
 
-
 h1 {
-
     color: darkred;
     text-align: center;
-
 }
 
-
-body {
-
+div.main_form{
+    font-size: 26px;
+    text-transform: uppercase;
+    display: table;
+    margin: 0 auto;
+    vertical-align: center;
 }
 
+div.buttons{
+    text-align: center;
+    margin: 0 auto;
+}
 
