@@ -20,15 +20,36 @@ h1 {
 
 body {
     /*background-color: #471615;*/
+    margin-top: 0;
     background-image: url("hearts.png");
+}
+
+div.header{
+    background-color: rgba(0, 0, 0, 0.10);
+    margin: 0 0 20px 0;
+    padding: 1%;
+}
+
+span.left{
+    text-transform: uppercase;
+    font-style: italic;
+    color: #C10A47;
+    margin: 0 auto;
+}
+
+span.right{
+    font-size: 14px;
+    text-transform: uppercase;
+    float: right;
+    margin: 0 auto;
 }
 
 div.content_wrapper{
     background-color: #FCEBDD;
-    margin-top: -2em;
+    /*margin-top: -2em;*/
     margin-left: 15%;
     margin-right: 15%;
-    padding-top: 50px;
+    /*padding-top: 50px;*/
     padding-bottom: 50px;
     border-width: 5px;
     border-color: #F3296D;
@@ -36,7 +57,7 @@ div.content_wrapper{
 }
 
 div.main_form{
-    font-size: 20px;
+    font-size: 14px;
     text-transform: uppercase;
     display: table;
     margin: 0 auto;
@@ -62,16 +83,16 @@ button{
     border-radius: 5px;
     /*margin-bottom: 50px;*/
     padding: 0 5px 0 5px;
-
     margin-top: 5px;
     border: black 1px solid;
     transition-duration: 0.2s;
     display: inline-block;
+    box-shadow: black 3px 3px 5px;
 }
 
 button:hover{
     background-color: #F3296D;
-    box-shadow: black 3px 3px;
+    box-shadow: #FF84AD 0 0 5px 5px;
     color: white;
 }
 

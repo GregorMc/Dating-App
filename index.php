@@ -5,15 +5,18 @@
     <title>Love at First Site</title>
     <link rel="stylesheet" type="text/css" href="Design.css"/>
 </head>
+
 <body>
+
 <div class="content_wrapper">
     <div class="header">
         <span class="left">Love at first site</span>
         <span class="right">
-            <label>Search: </label><input type="text"/>
-            <button formaction="">Sign In</button>
-        </span>
+        <label>Search: </label><input type="text"/>
+        <button formaction="">Sign In</button>
+    </span>
     </div>
+
 <h1 style="text-align:center;" > Love at First Site </h1>
 <div class="main_form">
     <form>
