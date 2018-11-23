@@ -16,11 +16,14 @@
     $name =          strip_tags(isset ($_POST["name"])         ?$_POST["name"]:"");
     $username =      strip_tags(isset ($_POST["username"])     ?$_POST["username"]:"");
     $email =         strip_tags(isset ($_POST["email"])        ?$_POST["email"]:"");
+    $confirmEmail =  strip_tags(isset ($_POST["confirmEmail"]) ?$_POST["confirmEmail"]:"");
     $password =      strip_tags(isset ($_POST["password"])     ?$_POST["password"]:"");
+    $confirmPassword = strip_tags(isset ($_POST["confirmPassword"])  ?$_POST["confirmPassword"]:"");
     $age =           strip_tags(isset ($_POST["age"])          ?$_POST["age"]:"");
     $location =      strip_tags(isset ($_POST["location"])     ?$_POST["location"]:"");
 
-    if (($name==="") || ($username==="") || (!filter_var($email, FILTER_VALIDATE_EMAIL)) || ($password==="") || ($age<18) || ($location==="")) {
+    if (($name==="") || ($username==="") || (!filter_var($email, FILTER_VALIDATE_EMAIL)) || ($password==="") || ($age<18) || ($location==="") || ($email != $confirmEmail)
+    || ($password != $confirmPassword)) {
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         echo "<p> Please complete all fields.</p>";
     }
@@ -36,7 +39,9 @@
                 Name:               <input type="text" name="name" value="<?php echo $name; ?>"/> <br/>
                 Username:           <input type="text" name="username"value="<?php echo $username; ?>"/> <br/>
                 Email:              <input type="text" name="email" value="<?php echo $email; ?>"/> <br/>
+                Confirm Email:      <input type="text" name="confirmEmail" value="<?php echo $confirmEmail; ?>"/> <br/>
                 Password:           <input type="text" name="password" value="<?php echo $password; ?>"/> <br/>
+                Confirm Password:   <input type="text" name="confirmPassword" value="<?php echo $confirmPassword; ?>"/> <br/>
                 Age:                <input type="number" name="age" value="<?php echo $age; ?>"/> <br/>
                 Location:           <input type="text" name="location" value="<?php echo $location; ?>"/> <br/>
 
