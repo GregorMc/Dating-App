@@ -2,17 +2,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Please create your user profile</title>
-
+    <link rel="stylesheet" type="text/css" href="Design.css"/>
 </head>
 <body>
-<div>
-    <link rel="stylesheet" type="text/css" href="Design.css"/>
-
+<div class="content_wrapper">
     <?php
 
+    // Connect to database.
+    $host = "devweb2018.cis.strath.ac.uk";
+    $user = "cs312groupq";
+    $pass = "EizooSi1ool3";
+    $dbname = "cs312groupq";
+
+    $conn = new mysqli($host, $user, $pass, $dbname);
+
+    if($conn->connect_error){
+        die("connection failed : ".$conn->connect_error); //FIXME remove once working
+    }
 
     //set up variables from $_GET
-
     $name =          strip_tags(isset ($_POST["name"])         ?$_POST["name"]:"");
     $username =      strip_tags(isset ($_POST["username"])     ?$_POST["username"]:"");
     $email =         strip_tags(isset ($_POST["email"])        ?$_POST["email"]:"");
@@ -29,79 +37,34 @@
     }
 
     ?>
-        <div>
-            <h1>Please create your user profile</h1>
-            <link rel="stylesheet" type="text/css" href="Design.css"/>
+        <h1>Please create your user profile</h1>
+
+        <div class="main_form">
+            <form action="SignupPage.php" method="post">
+                <table>
+                    <tr><td><label>Name:</label></td> <td><input type="text" name="name" value="<?php echo $name; ?>"/> </td></tr>
+                    <tr><td><label>Username:</label></td> <td><input type="text" name="username"value="<?php echo $username; ?>"/></td></tr>
+                    <tr><td><label>Email:</label></td> <td><input type="text" name="email" value="<?php echo $email; ?>"/></td></tr>
+                    <tr><td><label>Confirm Email:</label></td> <td><input type="text" name="confirmEmail" value="<?php echo $confirmEmail; ?>"/> </td></tr>
+                    <tr><td><label>Password:</label></td> <td><input type="password" name="password" value="<?php echo $password; ?>"/> </td></tr>
+                    <tr><td><label>Confirm Password:</label></td> <td><input type="password" name="confirmPassword" value="<?php echo $confirmPassword; ?>"/> </td></tr>
+                    <tr><td><label>Age:</label></td> <td><input type="text" name="age" value="<?php echo $age; ?>"/> </td></tr>
+                    <tr><td><label>Location:</label></td> <td><input type="text" name="location" value="<?php echo $location; ?>"/> </td></tr>
+                </table>
+                <div class="buttons"><button type="submit">Submit</button></div>
+            </form>
         </div>
+                <?php
+            }
+            $msg = "Thank you for signing up to Love At First Site! Please click the link to access your account.. https://devweb2018.cis.strath.ac.uk/~jwb16142/312/groupq/UserProfile.php " ;
+            mail($email, "Love at First Site", $msg);
 
-        <form action="SignupPage.php" method="post">
-            <p>
-                Name:               <input type="text" name="name" value="<?php echo $name; ?>"/> <br/>
-                Username:           <input type="text" name="username"value="<?php echo $username; ?>"/> <br/>
-                Email:              <input type="text" name="email" value="<?php echo $email; ?>"/> <br/>
-                Confirm Email:      <input type="text" name="confirmEmail" value="<?php echo $confirmEmail; ?>"/> <br/>
-                Password:           <input type="text" name="password" value="<?php echo $password; ?>"/> <br/>
-                Confirm Password:   <input type="text" name="confirmPassword" value="<?php echo $confirmPassword; ?>"/> <br/>
-                Age:                <input type="number" name="age" value="<?php echo $age; ?>"/> <br/>
-                Location:           <input type="text" name="location" value="<?php echo $location; ?>"/> <br/>
+            echo  "Hello ".$name." and Welcome to Love at First Site!";
+            echo  " Are you ready to find your soul mate? " ;
+            echo  "Click on the link sent to your email address ".$email;
 
-            <p><input type="submit"/></p>
-
-            </p>
-        </form>
-
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Sign up page</title>
-    </head>
-    <body>
-
-
-    </body>
-
-        <?php
-
-    }
-
-
-
-    $msg = "Thank you for signing up to Love At First Site! Please click the link to access your account.. https://devweb2018.cis.strath.ac.uk/~jwb16142/312/groupq/UserProfile.php " ;
-    mail($email, "Love at First Site", $msg);
-
-    echo  "Hello ".$name." and Welcome to Love at First Site!";
-    echo  " Are you ready to find your soul mate? " ;
-    echo  "Click on the link sent to your email address ".$email;
-
-    //connect to MySQL database
-    // *** TO BE CREATED ***
-
-    $host = "devweb2018.cis.strath.ac.uk";
-    $user = "";
-    $pass = "";
-    $dbname = "";
-
-    $conn = new mysqli($host, $user, $pass, $dbname);
-
-    if($conn->connect_error){
-        die("connection failed : ".$conn->connect_error); //FIXME remove once working
-    }
-
-    //create SQL query and run it
-    $sql = "INSERT INTO `UserProfiles` (`id`, `name`, `username`, `email`, `password`, `age`, `location`) VALUES "
-        ."(NULL, '$name', '$username', '$email', '$password', '$age', '$location');";
-
-
-    if($conn->query($sql)===TRUE){
-        echo"<p> Insert successful</p>";
-    } else{
-        die("Error on insert ".$conn-> error);//FIXME remove once working
-    }
-
-
-
-
-    ?>
+            ?>
+        </div>
 </div>
-</body>
+    </body>
 </html>
