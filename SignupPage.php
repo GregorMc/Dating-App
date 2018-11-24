@@ -6,10 +6,26 @@
 </head>
 <body>
 <div class="content_wrapper">
+    <div class="header">
+        <span class="left"><a href="index.php">Love at first site</a></span>
+        <span class="right">
+        <label>Search: </label><input type="text"/>
+        <button onclick="window.location.href='index.php'">Log In</button>
+    </span>
+    </div>
     <?php
+
+    function test_input($test_data) {
+        $test_data = trim($test_data);
+        $test_data = stripslashes($test_data);
+        $test_data = strip_tags($test_data);
+        $test_data = htmlspecialchars($test_data);
+        return $test_data;
+    }
 
     $genderOptions;
     $countryOptions;
+    $prompt = "";
 
     // Connect to database.
     $host = "devweb2018.cis.strath.ac.uk";
@@ -20,19 +36,19 @@
     $conn = new mysqli($host, $user, $pass, $dbname);
 
     if($conn->connect_error){
-        die("connection failed : ".$conn->connect_error); //FIXME remove once working
+        die("connection failed : ".$conn->connect_error);
     }
 
     //set up variables from $_GET
-    $name =          strip_tags(isset ($_POST["name"])         ?$_POST["name"]:"");
-    $username =      strip_tags(isset ($_POST["username"])     ?$_POST["username"]:"");
-    $email =         strip_tags(isset ($_POST["email"])        ?$_POST["email"]:"");
-    $confirmEmail =  strip_tags(isset ($_POST["confirmEmail"]) ?$_POST["confirmEmail"]:"");
-    $password =      strip_tags(isset ($_POST["password"])     ?$_POST["password"]:"");
-    $confirmPassword = strip_tags(isset ($_POST["confirmPassword"])  ?$_POST["confirmPassword"]:"");
-    $age =           strip_tags(isset ($_POST["age"])          ?$_POST["age"]:"");
-    $gender =        strip_tags(isset ($_POST["gender"])       ?$_POST["gender"]:"");
-    $location =      strip_tags(isset ($_POST["location"])     ?$_POST["location"]:"");
+    $name =          test_input(isset ($_POST["name"])         ?$_POST["name"]:"");
+    $username =      test_input(isset ($_POST["username"])     ?$_POST["username"]:"");
+    $email =         test_input(isset ($_POST["email"])        ?$_POST["email"]:"");
+    $confirmEmail =  test_input(isset ($_POST["confirmEmail"]) ?$_POST["confirmEmail"]:"");
+    $password =      test_input(isset ($_POST["password"])     ?$_POST["password"]:"");
+    $confirmPassword = test_input(isset ($_POST["confirmPassword"])  ?$_POST["confirmPassword"]:"");
+    $age =           test_input(isset ($_POST["age"])          ?$_POST["age"]:"");
+    $gender =        test_input(isset ($_POST["gender"])       ?$_POST["gender"]:"");
+    $location =      test_input(isset ($_POST["location"])     ?$_POST["location"]:"");
 
     $sql = "SELECT * FROM `genders`";
     $result = $conn->query($sql);
@@ -59,13 +75,13 @@
     if (($name==="") || ($username==="") || (!filter_var($email, FILTER_VALIDATE_EMAIL)) || ($password==="") || ($age==="") || ($location==="") || ($email != $confirmEmail)
     || ($password != $confirmPassword) || ($gender==="")) {
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        echo "<p> Please complete all fields.</p>";
+        $prompt = "Please complete all fields.";
     }
 
     ?>
         <h1>Please create your user profile</h1>
-
         <div class="main_form">
+            <?php echo "<span class='error_span'>$prompt</span>";?>
             <form action="SignupPage.php" method="post">
                 <table>
                     <tr><td><label>Name:</label></td> <td><input type="text" name="name" value="<?php echo $name; ?>"/> </td></tr>
@@ -98,7 +114,10 @@
                                     ?>
                     </td></tr>
                 </table>
-                <div class="buttons"><button type="submit">Submit</button></div>
+                <div class="buttons">
+                    <button formaction="index.php">Back</button>
+                    <button type="submit">Submit</button>
+                </div>
             </form>
         </div>
                 <?php
@@ -114,6 +133,8 @@
                 echo  "Are you ready to find your soul mate?\n" ;
                 echo  "Click on the link sent to your email address ".$email."\n";
             }
+
+            $conn->close();
             ?>
         </div>
 </div>
