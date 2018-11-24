@@ -1,5 +1,7 @@
 <?php
     include "connectDB.php";
+
+    // Check if the user is already logged in, if yes then redirect him to welcome page
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,11 +23,15 @@
     $username = test_input(isset ($_POST["username"]) ? $_POST["username"] : "");
     $password = test_input(isset ($_POST["password"]) ? $_POST["password"] : "");
 
-
-
     $sql = "SELECT * FROM `user_profiles` WHERE `user_profiles`.`username`=$username AND `user_profiles`.`password`=$password";
-
+    $result = connectDB::select($sql);
     //var_dump(connectDB::select($sql));
+
+    //session_start();
+    //var_dump($result);
+    //$_SESSION["id"] = $result["id"];
+
+    connectDB::disconnect();
     ?>
 
 <body>

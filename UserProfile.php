@@ -1,5 +1,12 @@
 <?php
-include "connectDB.php";
+    include "connectDB.php";
+    /*
+    session_start();
+    if(isset($_SESSION['id'])){
+        $user_id = $_SESSION['id'];
+    } else{
+        header("Location: index.php");
+    }*/
 ?>
 <!DOCTYPE html>
 <head>
@@ -23,7 +30,6 @@ $password = test_input(isset ($_POST["password"]) ? $_POST["password"] : "");
 $sql = "SELECT * FROM `user_profiles` WHERE `user_profiles`.`username`=\"$username\" AND `user_profiles`.`password`=\"$password\"";
 
 $user_details = connectDB::select($sql);
-
 connectDB::disconnect();
 
 ?>
@@ -40,7 +46,7 @@ connectDB::disconnect();
     </div>
     <div class="main_form">
         <h1><?php echo "Hi, ".$username."!"?></h1>
-        <div class="image"><?php echo '<img src="data:image/jpeg;base64,'.base64_encode( $user_details[0]["picture"] ).'" width=33%/>';?></div>
+        <div class="image"><?php echo "<img src=\"image.php?id=".$user_details[0]["id"]."\" width=33%/>";?></div>
     </div>
 </div>
 </body>
