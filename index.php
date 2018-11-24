@@ -1,5 +1,8 @@
+<?php
+    include "connectDB.php";
+?>
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Love at First Site</title>
@@ -18,24 +21,11 @@
     $username = test_input(isset ($_POST["username"]) ? $_POST["username"] : "");
     $password = test_input(isset ($_POST["password"]) ? $_POST["password"] : "");
 
-    // Connect to database.
-    $host = "devweb2018.cis.strath.ac.uk";
-    $user = "cs312groupq";
-    $pass = "EizooSi1ool3";
-    $dbname = "cs312groupq";
 
-    $conn = new mysqli($host, $user, $pass, $dbname);
-
-    if($conn->connect_error){
-        die("connection failed : ".$conn->connect_error);
-    }
 
     $sql = "SELECT * FROM `user_profiles` WHERE `user_profiles`.`username`=$username AND `user_profiles`.`password`=$password";
-    $result = $conn->query($sql);
 
-    var_dump($result);
-
-    $conn->close();
+    //var_dump(connectDB::select($sql));
     ?>
 
 <body>

@@ -1,3 +1,6 @@
+<?php
+include "connectDB.php";
+?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -27,19 +30,6 @@
     $countryOptions;
     $prompt = "";
 
-    // Connect to database.
-    $host = "devweb2018.cis.strath.ac.uk";
-    $user = "cs312groupq";
-    $pass = "EizooSi1ool3";
-    $dbname = "cs312groupq";
-
-    $conn = new mysqli($host, $user, $pass, $dbname);
-
-    if($conn->connect_error){
-        die("connection failed : ".$conn->connect_error);
-    }
-
-    //set up variables from $_GET
     $name =          test_input(isset ($_POST["name"])         ?$_POST["name"]:"");
     $username =      test_input(isset ($_POST["username"])     ?$_POST["username"]:"");
     $email =         test_input(isset ($_POST["email"])        ?$_POST["email"]:"");
@@ -51,26 +41,10 @@
     $location =      test_input(isset ($_POST["location"])     ?$_POST["location"]:"");
 
     $sql = "SELECT * FROM `genders`";
-    $result = $conn->query($sql);
-
-    if($result->num_rows > 0){
-        $i = 0;
-        while($row = $result->fetch_assoc()){
-            $genderOptions[$i] = $row;
-            $i++;
-        }
-    }
+    $genderOptions = connectDB::select($sql);
 
     $sql = "SELECT * FROM `countries`";
-    $result = $conn->query($sql);
-
-    if($result->num_rows > 0){
-        $i = 0;
-        while($row = $result->fetch_assoc()){
-            $countryOptions[$i] = $row;
-            $i++;
-        }
-    }
+    $countryOptions = connectDB::select($sql);
 
     if (($name==="") || ($username==="") || (!filter_var($email, FILTER_VALIDATE_EMAIL)) || ($password==="") || ($age==="") || ($location==="") || ($email != $confirmEmail)
     || ($password != $confirmPassword) || ($gender==="")) {
@@ -125,7 +99,7 @@
 
             $sql = "INSERT INTO `user_profiles`(`name`, `username`, `email`, `password`, `age`, `gender`, `location`) VALUES (\"$name\",\"$username\", \"$email\", \"$password\", \"$age\", \"$gender\", \"$location\")";
 
-            if($conn->query($sql) === TRUE){
+            if(connectDB::query($sql) === TRUE){
                 $msg = "Thank you for signing up to Love At First Site! Please click the link to access your account.. https://devweb2018.cis.strath.ac.uk/~jwb16142/312/groupq/UserProfile.php " ;
                 mail($email, "Love at First Site", $msg);
 
@@ -134,7 +108,7 @@
                 echo  "Click on the link sent to your email address ".$email."\n";
             }
 
-            $conn->close();
+            connectDB::disconnect();
             ?>
         </div>
 </div>
