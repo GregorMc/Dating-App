@@ -77,9 +77,27 @@ div.main_form p{
     margin-bottom: 0px;
 }
 
-div.image img{
+div#image img{
     margin: 50px;
-    border: black solid 2px;
+    border: black solid 3px;
+}
+
+div.user_profile#wrapper{
+    margin: 0 15% 0 15%;
+}
+
+div.user_profile#desc p {
+
+}
+
+div.user_profile#desc img {
+    float: left;
+    margin: 0 40px 0 0;
+    border: black solid 3px;
+}
+
+div.user_profile#desc label {
+    font-weight: bold;
 }
 
 div.buttons{

@@ -24,6 +24,8 @@ function test_input($test_data) {
     return $test_data;
 }
 
+connectDB::connect();
+
 $username = test_input(isset ($_POST["username"]) ? $_POST["username"] : "");
 $password = test_input(isset ($_POST["password"]) ? $_POST["password"] : "");
 
@@ -33,7 +35,6 @@ $user_details = connectDB::select($sql);
 connectDB::disconnect();
 
 ?>
-
 
 <body>
 <div class="content_wrapper">
@@ -46,7 +47,31 @@ connectDB::disconnect();
     </div>
     <div class="main_form">
         <h1><?php echo "Hi, ".$username."!"?></h1>
-        <div class="image"><?php echo "<img src=\"image.php?id=".$user_details[0]["id"]."\" width=33%/>";?></div>
+        <div class="user_profile" id="wrapper">
+            <div class="user_profile" id="desc">
+                <?php echo "<img src=\"image.php?id=".$user_details[0]["id"]."\" width=33%/>";
+                echo "<span> <label>Bio: \t</label>".$user_details[0]['bio']."</span>";
+                echo "<table>";
+                echo "<tr><td><label>Name:</label></td>";
+                echo "<td>".$user_details[0]['name']."</td></tr>";
+                echo "<tr><td><label>Age:</label></td>";
+                echo "<td>".$user_details[0]['age']."</td></tr>";
+                echo "<tr><td><label>Gender: </label></td>";
+//                TODO GENDER 2 LOCATION 13
+                echo "<td>".$user_details[0]['gender']."</td></tr>";
+                echo "<tr><td><label>Location: </label></td>";
+                echo "<td>".$user_details[0]['location']."</td></tr>";
+                echo "</table>";
+                ?>
+                <div class="buttons">
+                    <form method="post">
+                        <button formaction="index.php">Back</button>
+                        <button formaction="editProfile.php">Edit Profile</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 </body>
