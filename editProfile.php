@@ -66,7 +66,7 @@ else{
                     <table>
                         <label><input type="text" name="first" value="false" hidden/></label>
                         <tr><td><label>Name:</label></td> <td><input type="text" name="name" value="<?php echo $name; ?>"/> </td></tr>
-                        <tr><td><label>Age:</label></td> <td><input type="text" name="age" value="<?php echo $age; ?>"/> </td></tr>
+                        <tr><td><label>Age:</label></td> <td><input type="text" name="age" value="<?php echo $age; ?>" required pattern="((18|19|[2-9][0-9]))"/> </td></tr>
                         <tr><td><label>Gender:</label></td> <td> <select name="gender">
                                     <option value="" selected disabled value>select gender<br>
                                         <?php
@@ -95,19 +95,9 @@ else{
                         <button type="submit" name="edit" value="aaa">Submit</button>
                     </div>
                 </form>
+                <form action="editPreferences.php" method="post">
+                    <button formaction="editPreferences.php">Edit Preferences</button>
+                </form>
             </div>
-            <?php
-
-
-            $sql = "UPDATE `user_profiles` SET  `name`=\"$name\", `age`=\"$age\", `gender`=\"$gender\", `location`=\"$location\" WHERE `id`=\"$id\"";
-
-            if(connectDB::query($sql) === TRUE && !empty($_POST["edit"])){
-                echo  "updated";
-            }
-
-            connectDB::disconnect();
-
-        ?>
-    </div>
     </div>
     </body>
