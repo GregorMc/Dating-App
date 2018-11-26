@@ -126,11 +126,18 @@ button:hover{
 }
 
 span.error_span{
+    text-transform: uppercase;
+    display: table;
+    vertical-align: center;
     color: red;
     font-size: 14px;
     text-align: center;
     margin: 0 auto;
 }
+
+
+
+
 
 
 

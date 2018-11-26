@@ -19,10 +19,12 @@
     $username = test_input(isset ($_POST["username"]) ? $_POST["username"] : "");
     $password = test_input(isset ($_POST["password"]) ? $_POST["password"] : "");
 
+    $sql = "SELECT * FROM `user_profiles`";
+    $result = connectDB::select($sql);
+
     $sql = "SELECT * FROM `user_profiles` WHERE `user_profiles`.`username`=\"$username\" AND `user_profiles`.`password`=\"$password\"";
     $result = connectDB::select($sql);
 
-    var_dump($result);
     if(!empty($username) && !empty($password)){
         if(empty($result)){
             $form_error = "Wrong username or password.";
@@ -65,12 +67,12 @@
         <div class="buttons">
             <button type="submit" name="logIn"> Log in </button>
         </div>
-            <hr>
-            <p>Don't have an account?</p>
-        <div class="buttons">
-            <button formaction="SignupPage.php" formmethod="post" type="submit" name="signUp"> Sign up </button>
-        </div>
     </form>
+    <hr>
+    <p>Don't have an account?</p>
+    <div class="buttons">
+        <button onclick="window.location.href='SignupPage.php'" name="signUp"> Sign up </button>
+    </div>
 </div>
 </div>
 </body>

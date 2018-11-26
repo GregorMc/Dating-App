@@ -48,8 +48,12 @@ connectDB::disconnect();
         <h1><?php echo "Hi, ".$username."!"?></h1>
         <div class="user_profile" id="wrapper">
             <div class="user_profile" id="desc">
-                <?php echo "<img src=\"image.php?id=".$user_details[0]["id"]."\" width=33%/>";
-                echo "<span> <label>Bio: \t</label>".$user_details[0]['bio']."</span>";
+                <?php
+                    if (!is_null($user_details[0]['picture']))
+                        echo "<img src=\"image.php?id=".$user_details[0]["id"]."\" width=33%/>";
+                    else
+                        echo "<img src=\"imagedefault.php\" width=33%/>";
+                echo "<span> <label>Bio: </label>".$user_details[0]['bio']."</span>";
                 echo "<table>";
                 echo "<tr><td><label>Name:</label></td>";
                 echo "<td>".$user_details[0]['name']."</td></tr>";
@@ -64,7 +68,6 @@ connectDB::disconnect();
                 ?>
                 <div class="buttons">
                     <form method="post">
-                        <button formaction="index.php">Back</button>
                         <button formaction="editProfile.php">Edit Profile</button>
                     </form>
                 </div>
