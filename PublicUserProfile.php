@@ -2,9 +2,12 @@
     include "connectDB.php";
     session_start();
 
-    if(!isset($_SESSION['id'])) {
-        header('Location: https://devweb2018.cis.strath.ac.uk/cs312groupq/index.php');
+    $conn = connectDB::connect();
+
+    if(isset($_GET["id"])){
+        $passed_id = $conn->real_escape_string($_GET["id"]);
     }
+
 
 ?>
 <!DOCTYPE html>
@@ -25,7 +28,7 @@ function test_input($test_data) {
 
 connectDB::connect();
 
-$id = $_SESSION["id"];
+$id = $passed_id;
 
 $sql = "SELECT * FROM `user_profiles` WHERE `user_profiles`.`id`=\"$id\"";
 $user_details = connectDB::select($sql);
@@ -44,7 +47,6 @@ $sql = "SELECT `interest`, `interest_n` FROM `user_profiles` INNER JOIN (SELECT 
 $interests = connectDB::select($sql);
 
 $username = $user_details[0]["username"];
-$password = $user_details[0]["password"];
 
 connectDB::disconnect();
 ?>
@@ -54,11 +56,16 @@ connectDB::disconnect();
     <div class="header">
         <span class="left"><a href="index.php">Love at first site</a></span>
         <span class="right">
-        <button onclick="window.location.href='logout.php'">Log Out</button>
+            <?php
+                if(!isset($_SESSION['id']))
+                    echo "<button onclick=\"window.location.href='index.php'\">Log In</button>";
+                else
+                    echo "<button onclick=\"window.location.href='logout.php'\">Log Out</button>";
+            ?>
     </span>
     </div>
     <div class="main_form">
-        <h1><?php echo "Hi, ".$username."!"?></h1>
+        <h1><?php echo "$username"?></h1>
         <div class="user_profile" id="wrapper">
             <div class="user_profile" id="desc">
                 <?php
@@ -82,7 +89,7 @@ connectDB::disconnect();
                     if($c['id']===$user_details[0]['location'])
                         echo "<td>".$c['name']."</td></tr>";
                 }
-                if (isset($user_details[0]['min_age_of_interest']) && isset($user_details[0]['max_age_of_interest'])){
+                    if (isset($user_details[0]['min_age_of_interest']) && isset($user_details[0]['max_age_of_interest'])){
                     echo "<tr><td><label>Age of Interest: </label></td>";
                     echo "<td>".$user_details[0]['min_age_of_interest']."-".$user_details[0]['max_age_of_interest']."</td></tr>";
                 }
@@ -100,8 +107,8 @@ connectDB::disconnect();
                 ?>
                 <div class="buttons">
                     <form method="post">
-                        <button formaction="editProfile.php">Edit Profile</button>
-                        <button class="match" formaction="match.php">MATCH</button>
+                        <button formaction="match.php">Back to Matches</button>
+                        <button formaction="mailto:<?php echo $user_details[0]['email'];?>"><?php echo $user_details[0]['email']; ?></button>
                     </form>
                 </div>
             </div>

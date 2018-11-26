@@ -105,6 +105,18 @@ div.buttons{
     margin: 0 auto;
 }
 
+div.match_list {
+    font-size: 14px;
+    text-transform: uppercase;
+    display: table;
+    margin: 0 auto;
+    vertical-align: center;
+}
+
+div.match_list td, th{
+    padding-right: 20px;
+}
+
 button{
     background-color: #FFFFFF;
     color: black;
@@ -119,6 +131,26 @@ button{
     box-shadow: black 3px 3px 5px;
 }
 
+.match{
+    background-color: #ff3399;
+    color: black;
+    min-width: 50px;
+    min-height: 20px;
+    border-radius: 5px;
+    padding: 0 5px 0 5px;
+    margin-top: 5px;
+    border: black 1px solid;
+    transition-duration: 0.2s;
+    display: inline-block;
+    box-shadow: #FF84AD 0 0 5px 5px;
+}
+
+.match:hover{
+    background-color: #F3296D;
+    box-shadow: #ffff1a 0 0 5px 5px;
+    color: white;
+}
+
 button:hover{
     background-color: #F3296D;
     box-shadow: #FF84AD 0 0 5px 5px;
@@ -130,6 +162,16 @@ span.error_span{
     display: table;
     vertical-align: center;
     color: red;
+    font-size: 14px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+span.confirm{
+    text-transform: uppercase;
+    display: table;
+    vertical-align: center;
+    color: forestgreen;
     font-size: 14px;
     text-align: center;
     margin: 0 auto;

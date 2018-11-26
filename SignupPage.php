@@ -31,6 +31,9 @@ session_start();
 
     $genderOptions;
     $countryOptions;
+    $prompt = "";
+    $message = "";
+    $succ = false;
 
     $name =          test_input(isset ($_POST["name"])         ?$_POST["name"]:"");
     $username =      test_input(isset ($_POST["username"])     ?$_POST["username"]:"");
@@ -51,24 +54,46 @@ session_start();
     $sql = "SELECT * FROM `user_profiles` WHERE `user_profiles`.`username`=\"$username\" AND `user_profiles`.`password`=\"$password\"";
     $accountExistsCheck = connectDB::select($sql);
 
-    if (($name==="") || ($username==="") || (!filter_var($email, FILTER_VALIDATE_EMAIL)) || ($password==="") || ($age==="") || ($location==="") || ($email != $confirmEmail)
-    || ($password != $confirmPassword) || ($gender==="")) {
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        $prompt = "Please complete all fields.";
-    }
+     if (!empty($_POST['password']) && !empty($_POST['confirmPassword']) && $_POST['password'] !== $_POST['confirmPassword']){
+                $prompt = "Passwords don't match!";
+            }
+            else if (!empty($email) && !empty($confirmEmail) && $email !== $confirmEmail) {
+                $prompt = "Emails don't match!";
+            }
+            else if (empty($accountExistsCheck)) {
+                $sql = "INSERT INTO `user_profiles`(`name`, `username`, `email`, `password`, `age`, `gender`, `location`) VALUES (\"$name\",\"$username\", \"$email\", \"$password\", \"$age\", \"$gender\", \"$location\")";
 
-    ?>
+                if (connectDB::query($sql) === TRUE) {
+                    $succ = true;
+                    $msg = "Thank you for signing up to Love At First Site! Please click the link to access your account.. https://devweb2018.cis.strath.ac.uk/~jwb16142/312/groupq/UserProfile.php ";
+                    mail($email, "Love at First Site", $msg);
+
+                    $message = "Hello, " . $name . ", and Welcome to Love at First Site!\n Are you ready to find your soul mate?\n Click on the link sent to your email address " . $email . "\n";
+                    $sql = "SELECT * FROM `user_profiles` WHERE `user_profiles`.`username`=\"$username\"";
+                    $result = connectDB::select($sql);
+
+                    $_SESSION["id"] = $result[0]["id"];
+                }
+            } else {
+
+               echo "<span class='error_span'>Account with username: ".$username." already exists!</span>";
+            }
+            connectDB::disconnect();
+            ?>
         <h1>Please create your user profile</h1>
-        <div class="main_form">
+        <?php echo "<span class='error_span'>".$prompt."</span>";
+              echo "<span class='confirm'>".$message."</span>";?>
+
+    <div class="main_form">
             <form action="SignupPage.php" method="post">
                 <table>
                     <tr><td><label>Name:</label></td> <td><input type="text" name="name" required value="<?php echo $name; ?>"/> </td></tr>
-                    <tr><td><label>Username:</label></td> <td><input type="text" name="username" required value="<?php echo $username; ?>"/></td></tr>
-                    <tr><td><label>Email:</label></td> <td><input type="text" name="email" required value="<?php echo $email; ?>"/></td></tr>
-                    <tr><td><label>Confirm Email:</label></td> <td><input type="text" name="confirmEmail" required value="<?php echo $confirmEmail; ?>"/> </td></tr>
+                    <tr><td><label>Username:</label></td> <td><input type="text" name="username" required pattern="([A-Za-z0-9_\-,.]+)" value="<?php echo $username; ?>"/></td></tr>
+                    <tr><td><label>Email:</label></td> <td><input type="email" name="email" required value="<?php echo $email; ?>"/></td></tr>
+                    <tr><td><label>Confirm Email:</label></td> <td><input type="email" name="confirmEmail" required value="<?php echo $confirmEmail; ?>"/> </td></tr>
                     <tr><td><label>Password:</label></td> <td><input type="password" name="password" required value="<?php echo $password; ?>"/> </td></tr>
                     <tr><td><label>Confirm Password:</label></td> <td><input type="password" name="confirmPassword" required value="<?php echo $confirmPassword; ?>"/> </td></tr>
-                    <tr><td><label>Age:</label></td> <td><input type="text" name="age" required value="<?php echo $age; ?>"/> </td></tr>
+                    <tr><td><label>Age:</label></td> <td><input type="text" name="age" required pattern="((18|19|[2-9][0-9]))" value="<?php echo $age; ?>"/> </td></tr>
                     <tr><td><label>Gender:</label></td> <td> <select name="gender" required>
                                 <option value="" selected disabled value>select gender<br>
                                     <?php
@@ -92,40 +117,17 @@ session_start();
                                     ?>
                     </td></tr>
                 </table>
-                <div class="buttons">
-                    <button onclick="window.location.href='index.php'" type="button" formaction="">Back</button>
-                    <button type="submit">Submit</button>
+                    <?php if ($succ == true){
+                        echo "<div class='buttons'><button formaction='index.php'>Continue</button></div>";
+                    } else {
+                        echo "<div class=\"buttons\">";
+                        echo "<button onclick=\"window.location.href='index.php'\" type=\"button\" formaction=\"\">Back</button>";
+                        echo "<button type=\"submit\">Submit</button>";
+                        echo "</div>";
+                    }?>
                 </div>
             </form>
         </div>
-
-                <?php
-            }
-
-            if (empty($accountExistsCheck)) {
-                $sql = "INSERT INTO `user_profiles`(`name`, `username`, `email`, `password`, `age`, `gender`, `location`) VALUES (\"$name\",\"$username\", \"$email\", \"$password\", \"$age\", \"$gender\", \"$location\")";
-
-                if (connectDB::query($sql) === TRUE) {
-                    $msg = "Thank you for signing up to Love At First Site! Please click the link to access your account.. https://devweb2018.cis.strath.ac.uk/~jwb16142/312/groupq/UserProfile.php ";
-                    mail($email, "Love at First Site", $msg);
-
-                    echo "Hello, " . $name . ", and Welcome to Love at First Site!\n";
-                    echo "Are you ready to find your soul mate?\n";
-                    echo "Click on the link sent to your email address " . $email . "\n";
-                    echo "<div class='buttons'><button onclick=\"window.location.href='UserProfile.php'\">Continue</button></div>";
-                    $sql = "SELECT * FROM `user_profiles` WHERE `user_profiles`.`username`=\"$username\"";
-                    $result = connectDB::select($sql);
-
-                    $_SESSION["id"] = $result[0]["id"];
-                }
-            } else {
-
-               echo "<span class='error_span'>Account with username: ".$username." already exists!</span>";
-            }
-            connectDB::disconnect();
-            ?>
-
         </div>
-</div>
     </body>
 </html>
