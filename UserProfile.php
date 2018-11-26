@@ -1,12 +1,11 @@
 <?php
     include "connectDB.php";
-    /*
     session_start();
-    if(isset($_SESSION['id'])){
-        $user_id = $_SESSION['id'];
-    } else{
-        header("Location: index.php");
-    }*/
+
+    if(!isset($_SESSION['id'])) {
+        header('Location: https://devweb2018.cis.strath.ac.uk/cs312groupq/index.php');
+    }
+
 ?>
 <!DOCTYPE html>
 <head>
@@ -26,14 +25,15 @@ function test_input($test_data) {
 
 connectDB::connect();
 
-$username = test_input(isset ($_POST["username"]) ? $_POST["username"] : "");
-$password = test_input(isset ($_POST["password"]) ? $_POST["password"] : "");
+$id = $_SESSION["id"];
 
-$sql = "SELECT * FROM `user_profiles` WHERE `user_profiles`.`username`=\"$username\" AND `user_profiles`.`password`=\"$password\"";
-
+$sql = "SELECT * FROM `user_profiles` WHERE `user_profiles`.`id`=\"$id\"";
 $user_details = connectDB::select($sql);
-connectDB::disconnect();
 
+$username = $user_details[0]["username"];
+$password = $user_details[0]["password"];
+
+connectDB::disconnect();
 ?>
 
 <body>
@@ -41,8 +41,7 @@ connectDB::disconnect();
     <div class="header">
         <span class="left"><a href="index.php">Love at first site</a></span>
         <span class="right">
-        <label>Search: </label><input type="text"/>
-        <button onclick="window.location.href='index.php'">Log In</button>
+        <button onclick="window.location.href='logout.php'">Log Out</button>
     </span>
     </div>
     <div class="main_form">
